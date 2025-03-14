@@ -52,14 +52,16 @@ std::ostream& operator<<(std::ostream& os, Carte& carte) {
     return os;
 }
 
-class Jucator;
-
 class Pachet : public Carte {
 
     public:
         Pachet(const std::vector<Carte>& carti) : carti(carti) {}
 
         Pachet(){}
+
+        std::vector<Carte> getCarti() {
+            return carti;
+        }
 
         void amestecarePachet() {
             Carte aux;
@@ -78,29 +80,22 @@ class Pachet : public Carte {
             }
         }
 
-        std::vector<Carte> getPachet() {
+        std::vector<Carte> getPachet() const {
             return carti;
         }
 
-        static std::vector<Carte> generarePachet(int count) {
+        static std::vector<Carte> generarePachet(int type = 0) {
             std::vector<Carte> carti;
+            std::vector<Culoare> culoriPosibile = {Culoare::Toba, Culoare::Frunza, Culoare::Ghinda, Culoare::InimaRosie};
+            std::vector<int> valoriPosibile = {2, 3, 4, 7, 8, 9, 10, 11};
+
             int randomValue, randomColor;
-            for(int i = 0; i < count; ++i) {
-                randomValue = rand() % 12;
-                randomColor = rand() % 4;
-                Carte carte(static_cast<Culoare>(randomColor), randomValue);
-                carti.push_back(carte);
+            for(const auto& culoare : culoriPosibile) {
+                for(const auto& valoare : valoriPosibile ) {
+                    carti.push_back({culoare, valoare});
+                }
             }
             return carti;
-        }
-
-        static void distribuirePachet(Pachet& pachet, const std::vector<Jucator> jucatori) {
-            int randomNumber;
-            for(auto &it : jucatori) {
-                randomNumber = rand() % (pachet.carti.size());
-                it->pachet.carti.assign(randomNumber + pachet.carti.begin(), randomNumber + pachet.carti.begin() + 5);
-                pachet.carti.erase(randomNumber + pachet.carti.begin(), randomNumber + pachet.carti.begin() + 5);
-            }
         }
         
         ~Pachet() {
@@ -122,8 +117,31 @@ class Jucator : public Pachet {
             std::cout << "Nume: " << nume << " Echipa: " << echipa;
         }
 
+        void printPachet() {
+            for(auto& carte : pachet.getPachet())
+                std::cout << carte << " ";
+        }
+
+        Pachet getPachet() const {
+            return pachet;
+        }
+
     private:
         Pachet pachet;
         std::string nume;
         int echipa;
+};
+
+class Spetica : public Pachet {
+    public:
+        Spetica(){}
+
+        static void distribuirePachet(Pachet& pachetSeptica, const std::vector<Jucator> jucatori) {
+            int randomNumber;
+            for(auto it = jucatori.begin(); it != jucatori.end(); ++it) {
+                randomNumber = rand() % (pachetSeptica.getCarti().size());
+                it->getPachet().getCarti().assign(randomNumber + pachetSeptica.getCarti().begin(), randomNumber + pachetSeptica.getCarti().begin() + 5);
+                pachetSeptica.getCarti().erase(randomNumber + pachetSeptica.getCarti().begin(), randomNumber + pachetSeptica.getCarti().begin() + 5);
+            }
+        }
 };
