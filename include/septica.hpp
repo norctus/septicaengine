@@ -17,7 +17,7 @@ class Carte {
             return culoare;
         }
 
-        int getValoare() {
+        int getValoare() const {
             return valoare;
         }
 
@@ -48,7 +48,8 @@ std::ostream& operator<<(std::ostream& os, const Culoare& cul) {
 }
 
 std::ostream& operator<<(std::ostream& os, Carte& carte) {
-    os << "Culoare: " << carte.getCuloare() << " Valoare: " << carte.getValoare();
+
+    os << "Culoare: " << carte.getCuloare() << " Valoare: " <<  (carte.getValoare() == 11 ? "As" : std::to_string(carte.getValoare())) << "\n";
     return os;
 }
 
@@ -110,7 +111,7 @@ class Pachet : public Carte {
 class Jucator : public Pachet {
     public:
         Jucator() {}
-        Jucator(const Pachet& pachet, const std::string& nume, const int& echipa) : pachet(pachet), nume(nume), echipa(echipa) {}
+        Jucator(const std::string& nume, const int& echipa) : nume(nume), echipa(echipa) {}
 
 
         void printData() {
@@ -118,23 +119,23 @@ class Jucator : public Pachet {
         }
 
         void printPachet() {
-            for(auto& carte : pachet.getPachet())
-                std::cout << carte << " ";
+            for(auto& carte : mana.getPachet())
+                std::cout << carte;
         }
 
         Pachet getPachet() const {
-            return pachet;
+            return mana;
         }
 
     private:
-        Pachet pachet;
+        Pachet mana;
         std::string nume;
         int echipa;
 };
 
-class Spetica : public Pachet {
+class Septica : public Pachet {
     public:
-        Spetica(){}
+        Septica(){}
 
         static void distribuirePachet(Pachet& pachetSeptica, const std::vector<Jucator> jucatori) {
             int randomNumber;
