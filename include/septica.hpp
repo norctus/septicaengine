@@ -1,12 +1,6 @@
-#include "includes.hpp"
+#include "ddgtypes.hpp"
 
-enum class Culoare {
-    Toba,
-    Frunza,
-    Ghinda,
-    InimaRosie
-};
-
+// ============================ Carte ============================
 class Carte {
     public:
         Carte() {}
@@ -28,6 +22,7 @@ class Carte {
         int valoare;
 };
 
+// ======================== Culoare print operator =================
 std::ostream& operator<<(std::ostream& os, const Culoare& cul) {
     switch(cul) {
         case Culoare::Toba:
@@ -47,20 +42,22 @@ std::ostream& operator<<(std::ostream& os, const Culoare& cul) {
     return os;
 }
 
+// ======================== Carte print operator =================
 std::ostream& operator<<(std::ostream& os, Carte& carte) {
 
     os << "Culoare: " << carte.getCuloare() << " Valoare: " <<  (carte.getValoare() == 11 ? "As" : std::to_string(carte.getValoare())) << "\n";
     return os;
 }
 
-class Pachet : public Carte {
+// ============ Pachet class ================
+class Pachet {
 
     public:
         Pachet(const std::vector<Carte>& carti) : carti(carti) {}
 
         Pachet(){}
 
-        std::vector<Carte> getCarti() {
+        std::vector<Carte>& getCarti() {
             return carti;
         }
 
@@ -77,12 +74,8 @@ class Pachet : public Carte {
 
         void printPachet() {
             for(auto it = carti.begin(); it < carti.end(); ++it) {
-                std::cout << *it << " \n";
+                std::cout << *it;
             }
-        }
-
-        std::vector<Carte> getPachet() const {
-            return carti;
         }
 
         static std::vector<Carte> generarePachet(int type = 0) {
@@ -108,41 +101,55 @@ class Pachet : public Carte {
 
 };
 
-class Jucator : public Pachet {
+// =============== Jucator class ===============
+class Jucator {
     public:
         Jucator() {}
         Jucator(const std::string& nume, const int& echipa) : nume(nume), echipa(echipa) {}
 
 
         void printData() {
-            std::cout << "Nume: " << nume << " Echipa: " << echipa;
+            std::cout << "Nume: " << nume << " | Echipa: " << echipa << "\n";
         }
 
         void printPachet() {
-            for(auto& carte : mana.getPachet())
+            for(auto& carte : mana)
                 std::cout << carte;
         }
 
-        Pachet getPachet() const {
+        std::vector<Carte>& getPachet() {
             return mana;
         }
 
     private:
-        Pachet mana;
+        std::vector<Carte> mana;
         std::string nume;
         int echipa;
 };
 
-class Septica : public Pachet {
+// ============== Septica game logic =================
+class Septica {
     public:
         Septica(){}
 
-        static void distribuirePachet(Pachet& pachetSeptica, const std::vector<Jucator> jucatori) {
-            int randomNumber;
-            for(auto it = jucatori.begin(); it != jucatori.end(); ++it) {
-                randomNumber = rand() % (pachetSeptica.getCarti().size());
-                it->getPachet().getCarti().assign(randomNumber + pachetSeptica.getCarti().begin(), randomNumber + pachetSeptica.getCarti().begin() + 5);
-                pachetSeptica.getCarti().erase(randomNumber + pachetSeptica.getCarti().begin(), randomNumber + pachetSeptica.getCarti().begin() + 5);
+        static void distribuirePachet(Pachet& pachetSeptica, std::vector<Jucator>& jucatori) {
+            int nrJucatori = jucatori.size();
+            if (pachetSeptica.getCarti().size() < nrJucatori * 5) {
+                std::cerr << "Not enough cards to distribute!\n";
+                return;
+            }
+    
+            for (auto& jucator : jucatori) {
+                auto& cartiJucator = jucator.getPachet();
+                for (int i = 0; i < 5; i++) {
+                    cartiJucator.push_back(pachetSeptica.getCarti().back());
+                    pachetSeptica.getCarti().pop_back();
+                }
             }
         }
+
+    private:
+        int rounds;
+        std::vector<int> teamPoints;
+        
 };

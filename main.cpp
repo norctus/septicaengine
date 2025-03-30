@@ -1,4 +1,3 @@
-#include <iostream>
 #include "septica.hpp"
 
 int main() {
@@ -10,8 +9,18 @@ int main() {
     
     Jucator darius("Darius", 1);
     Jucator edi("Edi", 1);
+    std::vector<Jucator> players;
+    players.push_back(std::move(darius));
+    players.push_back(std::move(edi));
 
-    Septica::distribuirePachet(pachet, {darius, edi});
+    Septica::distribuirePachet(pachet, players);
+    players[1].printPachet();
+    players[1].printData();
+
+    players[0].printPachet();
+    players[0].printData();
+
+    pachet.printPachet();
 
     return 0;
 }
