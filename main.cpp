@@ -3,24 +3,19 @@
 int main() {
     srand(time(0));
 
-    std::vector<Carte> carti = Pachet::generarePachet(10);
-    Pachet pachet(Pachet::generarePachet());
-    pachet.amestecarePachet();
+    auto pachet = std::make_shared<Pachet>(Pachet::generarePachet());
+    pachet->amestecarePachet();
     
-    Jucator darius("Darius", 1);
-    Jucator edi("Edi", 1);
-    std::vector<Jucator> players;
-    players.push_back(std::move(darius));
-    players.push_back(std::move(edi));
+    std::vector<std::shared_ptr<Jucator>> jucatori = {
+        std::make_shared<Jucator>("Darius"),
+        std::make_shared<Jucator>("Edi"),
+        std::make_shared<Jucator>("Ileana"),
+        std::make_shared<Jucator>("Robi")
+    };
 
-    Septica::distribuirePachet(pachet, players);
-    players[1].printPachet();
-    players[1].printData();
-
-    players[0].printPachet();
-    players[0].printData();
-
-    pachet.printPachet();
+    Septica septica(pachet, jucatori);
+    septica.distribuirePachet();
+    septica.printJucatori();
 
     return 0;
 }

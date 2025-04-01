@@ -78,7 +78,7 @@ class Pachet {
             }
         }
 
-        static std::vector<Carte> generarePachet(int type = 0) {
+        static std::vector<Carte> generarePachet() {
             std::vector<Carte> carti;
             std::vector<Culoare> culoriPosibile = {Culoare::Toba, Culoare::Frunza, Culoare::Ghinda, Culoare::InimaRosie};
             std::vector<int> valoriPosibile = {2, 3, 4, 7, 8, 9, 10, 11};
@@ -105,11 +105,11 @@ class Pachet {
 class Jucator {
     public:
         Jucator() {}
-        Jucator(const std::string& nume, const int& echipa) : nume(nume), echipa(echipa) {}
+        Jucator(const std::string& nume) : nume(nume) {}
 
 
         void printData() {
-            std::cout << "Nume: " << nume << " | Echipa: " << echipa << "\n";
+            std::cout << "Nume: " << nume << "\n";
         }
 
         void printPachet() {
@@ -121,35 +121,61 @@ class Jucator {
             return mana;
         }
 
+        std::string& getName() {
+            return nume;
+        }
+
     private:
         std::vector<Carte> mana;
         std::string nume;
-        int echipa;
 };
 
 // ============== Septica game logic =================
 class Septica {
     public:
-        Septica(){}
+        Septica(std::shared_ptr<Pachet> pachetSeptica, std::vector<std::shared_ptr<Jucator>> jucatori) : pachetSeptica(pachetSeptica), jucatori(jucatori){
+            std::string key;
+            for(auto& jucator : jucatori) {
+                playerScore.insert({jucator->getName(), 0});
+            }
+        }
 
-        static void distribuirePachet(Pachet& pachetSeptica, std::vector<Jucator>& jucatori) {
+        void distribuirePachet() {
             int nrJucatori = jucatori.size();
-            if (pachetSeptica.getCarti().size() < nrJucatori * 5) {
+            if (pachetSeptica->getCarti().size() < nrJucatori * 5) {
                 std::cerr << "Not enough cards to distribute!\n";
                 return;
             }
     
             for (auto& jucator : jucatori) {
-                auto& cartiJucator = jucator.getPachet();
+                auto& cartiJucator = jucator->getPachet();
                 for (int i = 0; i < 5; i++) {
-                    cartiJucator.push_back(pachetSeptica.getCarti().back());
-                    pachetSeptica.getCarti().pop_back();
+                    cartiJucator.push_back(pachetSeptica->getCarti().back());
+                    pachetSeptica->getCarti().pop_back();
                 }
             }
         }
 
+        void startGame() {
+            //
+        }
+
+        void roundStart() {
+            //
+        }
+
+        void printJucatori() {
+            for(const auto& jucator: jucatori) {
+                jucator->printData();
+                jucator->printPachet();
+                std::cout << playerScore[jucator->getName()];
+            }
+        }
+
     private:
+        std::shared_ptr<Pachet> pachetSeptica;
+        std::vector<std::shared_ptr<Jucator>> jucatori;
         int rounds;
-        std::vector<int> teamPoints;
-        
+        std::unordered_map<std::string, int> playerScore;
+
 };
