@@ -1,6 +1,5 @@
 #ifndef DDGTYPES
 #define DDGTYPES
-#include "includes.hpp"
 
 // ======= Culoare =======
 enum class Culoare {

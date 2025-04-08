@@ -1,4 +1,6 @@
+#include "includes.hpp"
 #include "ddgtypes.hpp"
+#include "ddgnetwork.hpp"
 
 // ============================ Carte ============================
 class Carte {
@@ -157,11 +159,14 @@ class Septica {
         }
 
         void startGame() {
-            //
+            std::cout << "========= STARTING GAME ============\n\n";
+            while(nextRound) {
+                roundStart();
+            }
         }
 
         void roundStart() {
-            //
+            
         }
 
         void printJucatori() {
@@ -175,7 +180,8 @@ class Septica {
     private:
         std::shared_ptr<Pachet> pachetSeptica;
         std::vector<std::shared_ptr<Jucator>> jucatori;
-        int rounds;
+        bool nextRound = true;
         std::unordered_map<std::string, int> playerScore;
 
 };
+
