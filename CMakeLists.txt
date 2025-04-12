@@ -5,13 +5,13 @@ set(CMAKE_CXX_STANDARD 20)
 project(main)
 
 #Executable
-add_executable(main main.cpp)
+add_executable(main main.cpp src/jucator.cpp src/pachet.cpp src/septica.cpp)
 
 #Includes directory
-add_subdirectory(include)
+
 
 #Linked libraries
-target_link_libraries(main ws2_32)
+
 
 target_include_directories(main PUBLIC 
                     "${PROJECT_SOURCE_DIR}/include/")

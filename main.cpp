@@ -16,7 +16,5 @@ int main() {
     Septica septica(pachet, jucatori);
     septica.distribuirePachet();
 
-    startConnection();
-
     return 0;
 }

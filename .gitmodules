@@ -1,0 +1,3 @@
+[submodule "vendor/Wired"]
+	path = vendor/Wired
+	url = https://github.com/Robertkq/Wired.git
