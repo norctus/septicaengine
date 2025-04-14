@@ -1,7 +1,7 @@
 #include "jucator.hpp"
 
 void Jucator::printData() {
-    std::cout << "Nume: " << nume << "\n";
+    std::cout << "\nNume: " << nume << "\n";
 }
 
 void Jucator::printPachet() {

@@ -1,5 +1,4 @@
-#ifndef DDGTYPES
-#define DDGTYPES
+#pragma once
 
 // ======= Culoare =======
 enum class Culoare {
@@ -8,5 +7,3 @@ enum class Culoare {
     Ghinda,
     InimaRosie
 };
-
-#endif

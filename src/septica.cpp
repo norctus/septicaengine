@@ -9,18 +9,20 @@ Septica::Septica(std::shared_ptr<Pachet> pachetSeptica, std::vector<std::shared_
 
 void Septica::distribuirePachet() {
     int nrJucatori = jucatori.size();
-    if (pachetSeptica->getCarti().size() < nrJucatori * 5) {
-        std::cerr << "Not enough cards to distribute!\n";
-        return;
+    int cartiPerJucator = 6;
+    while (pachetSeptica->getCarti().size() < nrJucatori * cartiPerJucator) {
+        std::cout << "Not enough cards! Lowering the number of cards per player\n";
+        --cartiPerJucator;
     }
 
     for (auto& jucator : jucatori) {
         auto& cartiJucator = jucator->getPachet();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < cartiPerJucator; i++) {
             cartiJucator.push_back(pachetSeptica->getCarti().back());
             pachetSeptica->getCarti().pop_back();
         }
     }
+
 }
 
 void Septica::startGame() {
@@ -38,6 +40,6 @@ void Septica::printJucatori() {
     for(const auto& jucator: jucatori) {
         jucator->printData();
         jucator->printPachet();
-        std::cout << playerScore[jucator->getName()];
+        // std::cout << playerScore[jucator->getName()];
     }
 }
