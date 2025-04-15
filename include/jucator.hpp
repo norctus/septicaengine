@@ -9,9 +9,9 @@ class Jucator {
         Jucator(const std::string& nume) : nume(nume) {}
 
 
-        void printData();
+        std::string printData();
 
-        void printPachet();
+        std::string printPachet();
 
         std::vector<Carte>& getPachet() { return mana; }
 

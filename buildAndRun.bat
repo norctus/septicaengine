@@ -1,4 +1,8 @@
 @echo off
-set cwd=%cd%
+set CURRENT_DIR=%cd%
 echo Running build and run script ...
-call pushd build && cmake --build . && pushd Debug && main.exe && cd %cwd%
+if not exist "build" (
+    mkdir build && pushd build && cmake .. && popd
+)
+call pushd build && cmake --build . && pushd bin && pushd Debug && main.exe
+cd %CURRENT_DIR%

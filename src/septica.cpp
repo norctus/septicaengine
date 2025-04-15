@@ -36,10 +36,13 @@ void Septica::roundStart() {
     
 }
 
-void Septica::printJucatori() {
+std::string Septica::printJucatori() {
+    std::string ret = "";
     for(const auto& jucator: jucatori) {
-        jucator->printData();
-        jucator->printPachet();
+        ret += jucator->printData() + '\n';
+        ret += jucator->printPachet() + '\n';
         // std::cout << playerScore[jucator->getName()];
     }
+
+    return ret;
 }

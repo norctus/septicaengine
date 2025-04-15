@@ -13,6 +13,8 @@ class Carte {
 
         Culoare getCuloare() const { return culoare; }
 
+        std::string culoareAsString() const;
+
         int getValoare() const { return valoare; }
 
     private:
@@ -20,29 +22,8 @@ class Carte {
         int valoare;
 };
 
-// ======================== Culoare print operator =================
-std::ostream& operator<<(std::ostream& os, const Culoare& cul) {
-    switch(cul) {
-        case Culoare::Toba:
-            os << "Toba";
-            break;
-        case Culoare::Frunza:
-            os << "Frunza";
-            break;
-        case Culoare::Ghinda:
-            os << "Ghinda";
-            break;
-        case Culoare::InimaRosie:
-            os << "InimaRosie";
-            break;
-    }
+std::ostream& operator<<(std::ostream& os, const Culoare& cul);
 
-    return os;
-}
+std::ostream& operator<<(std::ostream& os, const Carte& carte);
 
-// ======================== Carte print operator =================
-std::ostream& operator<<(std::ostream& os, Carte& carte) {
-
-    os << "Culoare: " << carte.getCuloare() << " Valoare: " <<  (carte.getValoare() == 11 ? "As" : std::to_string(carte.getValoare())) << "\n";
-    return os;
-}
+std::string& operator+=(std::string& str, const Carte& carte);

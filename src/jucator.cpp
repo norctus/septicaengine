@@ -1,10 +1,16 @@
 #include "jucator.hpp"
 
-void Jucator::printData() {
-    std::cout << "\nNume: " << nume << "\n";
+std::string Jucator::printData() {
+    std::cout << "Nume: " << nume;
+    return "Nume: " + nume;
 }
 
-void Jucator::printPachet() {
-    for(auto& carte : mana)
+std::string Jucator::printPachet() {
+    std::string ret = "";
+    for(auto& carte : mana) {
         std::cout << carte;
+        ret += carte;
+    }
+
+    return ret;
 }

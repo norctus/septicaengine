@@ -14,7 +14,7 @@ class Septica {
 
         void roundStart();
 
-        void printJucatori();
+        std::string printJucatori();
 
     private:
         std::shared_ptr<Pachet> pachetSeptica;
