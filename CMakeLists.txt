@@ -6,7 +6,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 project(main)
 
 #Executable
-add_executable(main src/carte.cpp src/main.cpp src/jucator.cpp src/pachet.cpp src/septica.cpp)
+add_executable(main src/carte.cpp src/mainMenu.cpp src/jucator.cpp src/pachet.cpp src/septica.cpp)
 
 #Includes directory
 
