@@ -1,6 +1,7 @@
 add_library(DDGEngine
     MainMenu.cpp
     Options.cpp
+    UIButton.cpp
 )
 
 target_include_directories(DDGEngine PUBLIC
@@ -10,3 +11,5 @@ target_include_directories(DDGEngine PUBLIC
 target_link_libraries(DDGEngine PUBLIC
     sfml-graphics sfml-window sfml-system
 )
+
+target_compile_definitions(DDGEngine PRIVATE MY_DEBUG)

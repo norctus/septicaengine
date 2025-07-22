@@ -34,6 +34,4 @@ target_link_libraries(main
 target_include_directories(main PUBLIC 
                     "${PROJECT_SOURCE_DIR}/include")
 
-target_compile_definitions(main PRIVATE 
-    $<$<CONFIG:Debug>:MY_DEBUG>
-)
+add_compile_definitions(MY_DEBUG)
