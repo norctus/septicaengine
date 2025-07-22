@@ -6,9 +6,11 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 project(main)
 
 #Executable
-add_executable(main src/carte.cpp src/mainMenu.cpp src/jucator.cpp src/pachet.cpp src/septica.cpp)
+add_executable(main src/main.cpp)
 
 #Includes directory
+add_subdirectory(src/DDGEngine)
+add_subdirectory(src/SepticaGame)
 
 include(FetchContent)
 FetchContent_Declare(SFML
@@ -25,10 +27,12 @@ target_link_libraries(main
         sfml-graphics
         sfml-window
         sfml-system
+        DDGEngine
+        SepticaGame
         )
 
 target_include_directories(main PUBLIC 
-                    "${PROJECT_SOURCE_DIR}/include/")
+                    "${PROJECT_SOURCE_DIR}/include")
 
 target_compile_definitions(main PRIVATE 
     $<$<CONFIG:Debug>:MY_DEBUG>

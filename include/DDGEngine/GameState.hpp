@@ -1,6 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <SFML/System/String.hpp>
+#include <iostream>
+#include <optional>
 
 class UIButton {
     public:
@@ -22,7 +24,18 @@ class UIButton {
         bool interactible;
 };
 
-inline std::vector<UIButton> UIButtons;
+struct GameContext {
+    sf::Font* font = nullptr;
+};
 
-#define UIPush(X) (UIButtons.push_back(X))
+class GameState {
+public:
+    virtual ~GameState() = default;
+    virtual void handleEvent(sf::Event& event, sf::RenderWindow& window) = 0;
+    virtual void update(sf::Time dt, const sf::RenderWindow& window) = 0;
+    virtual void render(sf::RenderWindow& window) = 0;
+    virtual std::vector<UIButton>& getButtons() = 0;
+};
+
+extern std::unique_ptr<GameState> currentState;
 
