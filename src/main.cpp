@@ -4,8 +4,7 @@
 #include <SFML/System/String.hpp>
 #include <iostream>
 #include "DDGEngine/MainMenu.hpp"
-
-std::unique_ptr<GameState> currentState;
+#include "GameState.hpp"
 
 int main() {
     srand(time(0));

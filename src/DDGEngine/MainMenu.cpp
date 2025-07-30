@@ -1,4 +1,3 @@
-#pragma once
 #include "MainMenu.hpp"
 #include "Options.hpp"
 #include <optional>
@@ -13,11 +12,7 @@ MainMenu::MainMenu(std::shared_ptr<GameContext> cont) : context(cont) {
     UIButton optionsButton(sf::Text("Options", *context->font, 40), sf::Color::White, {800.f, 500.f});
     optionsButton.setOnClick([ctx = context]() {
         DEBUG_LOG("[OPTIONS CLICK] Scheduling state change...\n");
-        ctx->pendingStateChange = [ctx]() {
-            DEBUG_LOG("[OPTIONS TRANSITION STARTED]\n");
-            currentState = std::make_unique<Options>(ctx);
-            DEBUG_LOG("[OPTIONS TRANSITION COMPLETE]\n");
-        };
+        switchState<Options>(ctx);
     });
 
     UIButton exitButton(sf::Text("Exit", *context->font, 40), sf::Color::White, {800.f, 700.f});

@@ -12,6 +12,12 @@ Options::Options(std::shared_ptr<GameContext> cont) : context(cont) {
     DEBUG_LOG("Before emplaceback\n");
     buttons.emplace_back(fullscreen);
     DEBUG_LOG("After emplacebakc\n");
+
+    UIButton exitButton(sf::Text("Exit", *context->font, 60), sf::Color::Blue, {640.f, 800.f});
+    exitButton.setOnClick([cont = context]() {
+        switchState<MainMenu>(cont);
+    });
+    buttons.emplace_back(exitButton);
 }
     
 

@@ -1,5 +1,1 @@
-rmdir /s /q build
-mkdir build
-cd build
-cmake ..
-cd ..
+rmdir /s /q build && buildAndRunNinja.bat

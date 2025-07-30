@@ -12,3 +12,5 @@ target_include_directories(SepticaGame PUBLIC
 target_link_libraries(SepticaGame PUBLIC
     sfml-graphics sfml-window sfml-system
 )
+
+# target_compile_definitions(DDGEngine PRIVATE MY_DEBUG)

@@ -7,7 +7,7 @@ class Options : public GameState {
         void handleEvent(sf::Event& event, sf::RenderWindow& window) override;
         void update(sf::Time dt, const sf::RenderWindow& window) override;
         void render(sf::RenderWindow& window) override;
-        std::vector<UIButton>& getButtons() { return buttons; }
+        std::vector<UIButton>& getButtons() override { return buttons; }
 
     private:
         std::shared_ptr<GameContext> context;

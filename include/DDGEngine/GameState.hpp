@@ -16,7 +16,16 @@ public:
     virtual void update(sf::Time dt, const sf::RenderWindow& window) = 0;
     virtual void render(sf::RenderWindow& window) = 0;
     virtual std::vector<UIButton>& getButtons() = 0;
+    
 };
 
 extern std::unique_ptr<GameState> currentState;
 
+template <typename T>
+void switchState(std::shared_ptr<GameContext> ctx) {
+    ctx->pendingStateChange = [ctx]() {
+        DEBUG_LOG("[STATE TRANSITION STARTED]");
+        currentState = std::make_unique<T>(ctx);
+        DEBUG_LOG("[STATE TRANSITION COMPLETE]");
+    };
+}
